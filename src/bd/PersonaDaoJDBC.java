@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
+import modelo.Persona;
 import modelo.PersonaDao;
-import modelo.PersonaProxy;
-import modelo.Sujeto;
+import modelo.SetProxy;
 import modelo.Telefono;
 
 public class PersonaDaoJDBC implements PersonaDao {
@@ -29,17 +29,17 @@ public class PersonaDaoJDBC implements PersonaDao {
 		}
 	}
 
-	public Sujeto personaPorId(int id) {
+	public Persona personaPorId(int id) {
 		String sql = "select p.nombre " + "from personas p " + "where p.id_persona = ?";
 		try (Connection conn = obtenerConexion(); PreparedStatement statement = conn.prepareStatement(sql);) {
 			statement.setInt(1, id);
 			ResultSet result = statement.executeQuery();
-			Set<Telefono> telefonos = new HashSet<Telefono>();
+			Set<Telefono> telefonos = new SetProxy<Telefono>(this, id);
 			String nombrePersona = null;
 			while (result.next()) {
 				nombrePersona = result.getString(1);
 			}
-			return new PersonaProxy(id, nombrePersona, telefonos, this);
+			return new Persona(id, nombrePersona, telefonos);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

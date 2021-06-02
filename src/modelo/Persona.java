@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.Set;
 
-public class Persona implements Sujeto {
+public class Persona {
 	private int id;
 	private String nombre;
 	private Set<Telefono> telefonos;
