@@ -35,11 +35,11 @@ public class PersonaDaoJDBC implements PersonaDao {
 			statement.setInt(1, id);
 			ResultSet result = statement.executeQuery();
 			Set<Telefono> telefonos = new SetProxy<Telefono>(this, id);
-			String nombrePersona = null;
+			String nomPersona = null;
 			while (result.next()) {
-				nombrePersona = result.getString(1);
+				nomPersona = result.getString(1);
 			}
-			return new Persona(id, nombrePersona, telefonos);
+			return new Persona(id, nomPersona, telefonos);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
