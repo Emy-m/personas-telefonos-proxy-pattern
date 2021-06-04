@@ -25,7 +25,7 @@ public class PersonaDaoJDBC implements PersonaDao {
 
 			return conexion;
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new RuntimeException("Hubo un error con la base de datos");
+			throw new RuntimeException("Hubo un error con la base de datos", e);
 		}
 	}
 
